@@ -1,15 +1,26 @@
-# Android Frontend
-android-app/.gradle/
-android-app/.idea/
-android-app/build/
-android-app/app/build/
-android-app/local.properties
-android-app/.kotlin/
-.idea/
-
-# Python Backend
+# Node.js Backend
+backend/node_modules/
 backend/venv/
-backend/__pycache__/
-backend/cd/
+backend/backend/
+npm-debug.log*
+
+# Android Frontend
+frontend/.git/
+frontend/.gradle/
+frontend/.idea/
+frontend/build/
+frontend/app/build/
+frontend/local.properties
+frontend/.kotlin/
+.idea/
+*.apk
+*.aab
+
+# Python ML-Service
+ml-service/venv/
+ml-service/__pycache__/
+ml-service/cache/
+ml-service/routing/osm_cache/
 *.pyc
 .env
+

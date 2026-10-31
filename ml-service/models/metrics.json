@@ -1,0 +1,116 @@
+{
+  "final_model": "RandomForest",
+  "test_rmse": 23291.41345226528,
+  "test_mae": 12672.30560846561,
+  "test_r2": 0.986216848910054,
+  "baseline_comparison": [
+    {
+      "model": "LinearRegression",
+      "rmse": 82057.84482672391,
+      "mae": 47816.21076763374,
+      "r2": 0.8289208671446631,
+      "cv_rmse": 80501.38026711161
+    },
+    {
+      "model": "Ridge",
+      "rmse": 89116.59205543663,
+      "mae": 61379.414207481714,
+      "r2": 0.7982219281731195,
+      "cv_rmse": 96127.18123065963
+    },
+    {
+      "model": "GradientBoosting",
+      "rmse": 21085.482965211704,
+      "mae": 12383.570548681819,
+      "r2": 0.9887040195137455,
+      "cv_rmse": 20531.99352058479
+    },
+    {
+      "model": "RandomForest",
+      "rmse": 23291.41345226528,
+      "mae": 12672.30560846561,
+      "r2": 0.986216848910054,
+      "cv_rmse": 29956.620843198303
+    }
+  ],
+  "feature_schema": {
+    "numeric": [
+      "Duration_Days",
+      "Group_Size",
+      "Max_Altitude_Meters",
+      "Is_Restricted_Area"
+    ],
+    "categorical": [
+      "Destination",
+      "Travel_Month",
+      "Nationality_Category",
+      "Traveler_Type",
+      "Accommodation_Tier",
+      "Transport_Mode"
+    ]
+  },
+  "categorical_values": {
+    "Destination": [
+      "Amaltari Community Homestay",
+      "Annapurna Circuit",
+      "Bandipur Trails",
+      "Bardia National Park",
+      "Bhaktapur Durbar Square",
+      "Bhujung Village",
+      "Boudhanath",
+      "Champadevi / Chandragiri Trail",
+      "Chitwan National Park",
+      "Dhampus / Australian Camp",
+      "Everest Base Camp",
+      "Ghalegaun",
+      "Gokyo Lakes",
+      "Janakpur (Janaki Mandir)",
+      "Langtang Valley",
+      "Lumbini",
+      "Manaslu Circuit",
+      "Mardi Himal",
+      "Muktinath",
+      "Nagarkot",
+      "Pashupatinath",
+      "Poon Hill (Ghorepani)",
+      "Sagarmatha National Park",
+      "Shivapuri National Park",
+      "Sirubari",
+      "Swayambhunath",
+      "Upper Mustang"
+    ],
+    "Travel_Month": [
+      "April",
+      "August",
+      "December",
+      "February",
+      "January",
+      "July",
+      "June",
+      "March",
+      "May",
+      "November",
+      "October",
+      "September"
+    ],
+    "Nationality_Category": [
+      "Domestic",
+      "Foreign",
+      "SAARC"
+    ],
+    "Traveler_Type": [
+      "Group",
+      "Solo"
+    ],
+    "Accommodation_Tier": [
+      "Budget",
+      "Luxury",
+      "Standard"
+    ],
+    "Transport_Mode": [
+      "Flight",
+      "Private Jeep",
+      "Public Bus"
+    ]
+  }
+}

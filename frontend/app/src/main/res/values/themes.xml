@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.TrailMind" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Theme settings for API 26+ -->
+    </style>
+</resources>
