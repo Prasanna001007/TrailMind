@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.trailmind.util.Resource
+import com.example.trailmind.ui.theme.trailFieldColors
 
 // Brand colors
 val TrailBlue = Color(0xFF1F5C8B)
@@ -189,12 +190,7 @@ fun LoginScreen(
                                         }
                                     }
                                 },
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = TrailBlue,
-                                    unfocusedBorderColor = Color(0xFFDDDDDD),
-                                    focusedContainerColor = Color.White,
-                                    unfocusedContainerColor = Color.White
-                                ),
+                                colors = trailFieldColors(),
                                 placeholder = {
                                     Text(
                                         "you@example.com",
@@ -246,12 +242,7 @@ fun LoginScreen(
                                         )
                                     }
                                 },
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = TrailBlue,
-                                    unfocusedBorderColor = Color(0xFFDDDDDD),
-                                    focusedContainerColor = Color.White,
-                                    unfocusedContainerColor = Color.White
-                                ),
+                                colors = trailFieldColors(),
                                 placeholder = {
                                     Text(
                                         "••••••••",

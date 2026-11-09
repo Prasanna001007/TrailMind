@@ -23,4 +23,6 @@ ml-service/cache/
 ml-service/routing/osm_cache/
 *.pyc
 .env
-
+# Local-only files
+*.pkl
+android-app/

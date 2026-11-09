@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.trailmind.util.Resource
+import com.example.trailmind.ui.theme.trailFieldColors
 
 @Composable
 fun RegisterScreen(
@@ -135,10 +136,7 @@ fun RegisterScreen(
                                 modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp),
                                 singleLine = true, enabled = !isLoading,
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = TrailBlue, unfocusedBorderColor = Color(0xFFDDDDDD),
-                                    focusedContainerColor = Color.White, unfocusedContainerColor = Color.White
-                                ),
+                                colors = trailFieldColors(),
                                 placeholder = { Text("Your name", color = Color(0xFFAAAAAA), fontSize = 14.sp) }
                             )
                         }
@@ -160,11 +158,7 @@ fun RegisterScreen(
                                             contentAlignment = Alignment.Center
                                         ) { Icon(Icons.Default.Check, "Valid", tint = Color.White, modifier = Modifier.size(14.dp)) }
                                     }
-                                },
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = TrailBlue, unfocusedBorderColor = Color(0xFFDDDDDD),
-                                    focusedContainerColor = Color.White, unfocusedContainerColor = Color.White
-                                ),
+                                },colors = trailFieldColors(),
                                 placeholder = { Text("you@example.com", color = Color(0xFFAAAAAA), fontSize = 14.sp) }
                             )
                         }
@@ -188,10 +182,7 @@ fun RegisterScreen(
                                         )
                                     }
                                 },
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = TrailBlue, unfocusedBorderColor = Color(0xFFDDDDDD),
-                                    focusedContainerColor = Color.White, unfocusedContainerColor = Color.White
-                                ),
+                                colors = trailFieldColors(),
                                 placeholder = { Text("••••••••", color = Color(0xFFAAAAAA), fontSize = 14.sp) }
                             )
                         }
@@ -223,12 +214,8 @@ fun RegisterScreen(
                                         }
                                     }
                                 },
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = TrailBlue, unfocusedBorderColor = Color(0xFFDDDDDD),
-                                    focusedContainerColor = Color.White, unfocusedContainerColor = Color.White,
-                                    errorBorderColor = Color(0xFFD32F2F)
-                                ),
-                                placeholder = { Text("••••••••", color = Color(0xFFAAAAAA), fontSize = 14.sp) }
+                                colors = trailFieldColors(),
+                                placeholder = { Text("••••••••", color = Color(0xFF777777), fontSize = 14.sp) }
                             )
                             if (confirmPassword.isNotEmpty() && !passwordsMatch) {
                                 Spacer(Modifier.height(4.dp))

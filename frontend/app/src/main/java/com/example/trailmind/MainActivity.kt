@@ -1,5 +1,7 @@
 package com.example.trailmind
 
+import com.example.trailmind.ui.route.RouteMapScreen
+import com.example.trailmind.ui.trip.TripWizardScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +21,10 @@ import com.example.trailmind.ui.splash.SplashScreen
 import com.example.trailmind.ui.theme.TrailMindTheme
 import com.example.trailmind.data.local.TokenStore
 import androidx.compose.ui.platform.LocalContext
+import androidx.activity.compose.BackHandler
+import com.example.trailmind.ui.chat.ChatScreen
+import com.example.trailmind.ui.hotels.HotelsScreen
+import com.example.trailmind.ui.route.TripSelection
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +43,15 @@ class MainActivity : ComponentActivity() {
 fun AppNavigator() {
     var currentScreen by remember { mutableStateOf("splash") }
     val context = LocalContext.current
+    // Back from budget / trip screens returns to Home
+    BackHandler(enabled = currentScreen in listOf("budget", "trip_chat", "trip_wizard", "treks", "hotels")) {
+        currentScreen = "home"
+    }
+
+    // Back from Register returns to Login
+    BackHandler(enabled = currentScreen == "register") {
+        currentScreen = "login"
+    }
 
     when (currentScreen) {
         "splash" -> SplashScreen(
@@ -62,23 +77,41 @@ fun AppNavigator() {
             // ✅ UPDATED: Removed onPlanTripClick, added these two
             onStartAiChat = { currentScreen = "trip_chat" },
             onStartWizard = { currentScreen = "trip_wizard" },
-            onCategoryClick = { _: String -> },
+            onCategoryClick = { route ->
+                if (route == "treks" || route == "hotels") currentScreen = route
+            },
             onPlaceClick = { _: com.example.trailmind.ui.home.PopularPlace -> }
         )
+
+        "treks" -> RouteMapScreen(
+            onBack = { currentScreen = "home" }
+        )
+
+        "hotels" -> HotelsScreen()
 
         "budget" -> BudgetScreen(
             onBack = { currentScreen = "home" }
         )
 
         // ✅ NEW PLACEHOLDER SCREENS (so clicking the sheet options doesn't crash)
-        "trip_chat" -> PlaceholderScreen(
-            title = "AI Chat Screen (Coming Soon)",
-            onBack = { currentScreen = "home" }
+        "trip_chat" -> ChatScreen(
+            onViewRoute = { city, dest ->
+                TripSelection.set(city, dest)
+                currentScreen = "treks"
+            },
+            onSeeHotels = { dest ->
+                TripSelection.hotelsDestination = dest
+                currentScreen = "hotels"
+            },
+            onEditPlan = { inputs: com.example.trailmind.data.remote.dto.PlanInputs ->
+                TripSelection.prefill = inputs
+                currentScreen = "trip_wizard"
+            }
         )
 
-        "trip_wizard" -> PlaceholderScreen(
-            title = "Guided Questions (Coming Soon)",
-            onBack = { currentScreen = "home" }
+        "trip_wizard" -> TripWizardScreen(
+            onBack = { currentScreen = "home" },
+            onGetDirections = { currentScreen = "treks" }
         )
     }
 }

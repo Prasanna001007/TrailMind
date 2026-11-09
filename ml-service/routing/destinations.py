@@ -34,7 +34,7 @@ DESTINATIONS = {
     "Upper Mustang":                  (29.1892, 83.9631, "Trekking", 3840),
     "Muktinath":                      (28.8167, 83.8719, "Trekking", 3710),
     # Hiking
-    "Poon Hill (Ghorepani)":          (28.4000, 83.6858, "Hiking", 3210),
+    "Poon Hill (Ghorepani)":          (28.4002, 83.6893, "Hiking", 3210),
     "Nagarkot":                       (27.7172, 85.5208, "Hiking", 2175),
     "Shivapuri National Park":        (27.8110, 85.3920, "Hiking", 2732),
     "Bandipur Trails":                (27.9333, 84.4167, "Hiking", 1030),

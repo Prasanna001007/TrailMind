@@ -233,3 +233,74 @@ def predict(req: BudgetRequest):
         starting_city=req.starting_city,
         porter_available=c["has_porter"],
     )
+
+    # ─────────────────────────────────────────────
+# ROUTING ENDPOINTS (A* over the destination graph in routing/router.py)
+# ─────────────────────────────────────────────
+from functools import lru_cache
+
+
+class RouteRequest(BaseModel):
+    start: str   # must be a name from routing/destinations.py
+    end: str
+
+
+@lru_cache(maxsize=1)
+def _destination_graph():
+    """Builds the destination graph once and reuses it."""
+    from routing import router as rt
+    return rt.build_graph()
+
+
+@app.get("/destinations")
+def list_destinations():
+    from routing.destinations import DESTINATIONS
+    return [
+        {"name": n, "lat": v[0], "lon": v[1], "type": v[2], "altitude_m": v[3]}
+        for n, v in DESTINATIONS.items()
+    ]
+
+
+@app.post("/route")
+def find_route(req: RouteRequest):
+    try:
+        from routing import router as rt
+        from routing.destinations import DESTINATIONS
+    except ImportError as e:
+        raise HTTPException(status_code=500, detail=f"Routing libraries missing: {e}")
+
+    unknown = [n for n in (req.start, req.end) if n not in DESTINATIONS]
+    if unknown:
+        raise HTTPException(status_code=400, detail=f"Unknown destination(s): {unknown}")
+    if req.start == req.end:
+        raise HTTPException(status_code=400, detail="Start and end must be different")
+
+    path, _ = rt.astar(_destination_graph(), req.start, req.end)
+    if path is None:
+        raise HTTPException(status_code=404, detail="No route found")
+
+    journey = rt.journey_distance(path)
+    return {
+        "path": [
+            {
+                "name": n,
+                "lat": DESTINATIONS[n][0],
+                "lon": DESTINATIONS[n][1],
+                "type": DESTINATIONS[n][2],
+                "altitude_m": DESTINATIONS[n][3],
+            }
+            for n in path
+        ],
+        "macro_km": journey["macro_km"],
+        "micro_km": journey["micro_km"],
+        "total_km": journey["total_km"],
+    }
+
+from chat import router as chat_router
+app.include_router(chat_router)
+from hotels import router as hotels_router
+app.include_router(hotels_router)
+from plan import router as plan_router
+app.include_router(plan_router)
+from landmarks import router as landmarks_router
+app.include_router(landmarks_router)
